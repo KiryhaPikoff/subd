@@ -1,6 +1,8 @@
 package com.ulstu.pikoff.subd.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,11 +12,12 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ad {
 
     @Id
-    @SequenceGenerator(name="ad_seq", sequenceName="ad_seq", allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="ad_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private Integer rating;
@@ -25,6 +28,7 @@ public class Ad {
     private Status status;
 
     @OneToOne
+    @JoinColumn(name = "product_info_id")
     private ProductInfo productInfo;
 
     @ManyToOne
@@ -35,4 +39,17 @@ public class Ad {
 
     @OneToMany
     private Set<Comment> comments;
+
+    @Override
+    public String toString() {
+        return "Ad {\n" +
+                " id=" + id + ",\n" +
+                " rating=" + rating + ",\n" +
+                " creationDate=" + creationDate + ",\n" +
+                " status=" + status + "\n" +
+                " productInfo=" + productInfo + ",\n" +
+                " client=" + client + ",\n" +
+                " category=" + category + ",\n" +
+                "}" + "\n";
+    }
 }

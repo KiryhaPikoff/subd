@@ -3,10 +3,12 @@ package com.ulstu.pikoff.subd.repository;
 import com.ulstu.pikoff.subd.entity.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
 
+@Repository
 public interface AdRepository extends JpaRepository<Ad, Integer> {
 
     @Query("SELECT new com.ulstu.pikoff.subd.repository.CategoryNameWithCount(category.name, COUNT(a)) FROM Ad a " +

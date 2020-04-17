@@ -1,7 +1,10 @@
 package com.ulstu.pikoff.subd.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,15 +12,18 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
 
     @Id
-    @SequenceGenerator(name="comment_seq", sequenceName="comment_seq", allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="comment_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private Timestamp creationDate;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String text;
 
     @ManyToOne
@@ -25,4 +31,14 @@ public class Comment {
 
     @ManyToOne
     private Client client;
+
+    @Override
+    public String toString() {
+        return "Comment {" + "\n" +
+                " id=" + id + ",\n" +
+                " creationDate=" + creationDate + ",\n" +
+                " text='" + text + '\'' + ",\n" +
+                " client=" + client + ",\n" +
+                "}\n";
+    }
 }

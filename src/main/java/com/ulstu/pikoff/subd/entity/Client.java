@@ -1,6 +1,8 @@
 package com.ulstu.pikoff.subd.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,16 +11,15 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Client {
 
     @Id
-    @SequenceGenerator(name="client_seq", sequenceName="client_seq", allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="client_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String name;
-
-    private String address;
 
     private String surname;
 
@@ -27,4 +28,13 @@ public class Client {
 
     @OneToMany
     private Set<Comment> comments;
+
+    @Override
+    public String toString() {
+        return "Client {" + "\n" +
+                " id=" + id + ",\n" +
+                " name='" + name + '\'' + ",\n" +
+                " surname='" + surname + '\'' + ",\n" +
+                "}\n";
+    }
 }
